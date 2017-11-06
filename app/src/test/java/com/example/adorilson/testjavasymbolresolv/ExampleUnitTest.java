@@ -1,6 +1,7 @@
 package com.example.adorilson.testjavasymbolresolv;
 
 import com.github.javaparser.ParseException;
+import com.github.javaparser.resolution.declarations.ResolvedReferenceTypeDeclaration;
 import com.github.javaparser.symbolsolver.SourceFileInfoExtractor;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
@@ -20,9 +21,23 @@ import static org.junit.Assert.*;
  */
 public class ExampleUnitTest {
     public TypeSolver typeSolver() throws IOException {
-        return new CombinedTypeSolver(new ReflectionTypeSolver(),
+        return new CombinedTypeSolver(
+                new ReflectionTypeSolver(),
                 new JavaParserTypeSolver(new File("/Users/federico/repos/TestJavaSymbolSolver/app/src/main/java")),
-                new JarTypeSolver("/Users/federico/repos/TestJavaSymbolSolver/libs/android.jar"));
+                new JarTypeSolver("/Users/federico/repos/TestJavaSymbolSolver/libs/android.jar"),
+                new JarTypeSolver("/Users/federico/repos/TestJavaSymbolSolver/libs/support-compat-classes.jar"));
+    }
+
+    @Test
+    public void checkNotificationCompat() throws IOException, ParseException {
+        TypeSolver typeSolver = typeSolver();
+        ResolvedReferenceTypeDeclaration notificationCompat = typeSolver.solveType("android.support.v4.app.NotificationCompat");
+    }
+
+    @Test
+    public void checkNotificationCompatBuilder() throws IOException, ParseException {
+        TypeSolver typeSolver = typeSolver();
+        ResolvedReferenceTypeDeclaration builder = typeSolver.solveType("android.support.v4.app.NotificationCompat.Builder");
     }
 
     @Test
