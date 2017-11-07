@@ -4,6 +4,7 @@ import com.github.javaparser.ParseException;
 import com.github.javaparser.resolution.declarations.ResolvedReferenceTypeDeclaration;
 import com.github.javaparser.symbolsolver.SourceFileInfoExtractor;
 import com.github.javaparser.symbolsolver.model.resolution.TypeSolver;
+import com.github.javaparser.symbolsolver.resolution.typesolvers.AarTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.CombinedTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JarTypeSolver;
 import com.github.javaparser.symbolsolver.resolution.typesolvers.JavaParserTypeSolver;
@@ -25,7 +26,7 @@ public class ExampleUnitTest {
                 new ReflectionTypeSolver(),
                 new JavaParserTypeSolver(new File("/Users/federico/repos/TestJavaSymbolSolver/app/src/main/java")),
                 new JarTypeSolver("/Users/federico/repos/TestJavaSymbolSolver/libs/android.jar"),
-                new JarTypeSolver("/Users/federico/repos/TestJavaSymbolSolver/libs/support-compat-classes.jar"));
+                new AarTypeSolver(new File("/Users/federico/repos/TestJavaSymbolSolver/libs/support-compat-24.2.0.aar")));
     }
 
     @Test
